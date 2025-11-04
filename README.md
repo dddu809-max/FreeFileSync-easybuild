@@ -18,7 +18,7 @@ He use Open Build Service: https://build.opensuse.org/package/show/home:bgstack1
 
 .
 
-# It seems that this link was built based on open-source code?？
+# Repology is a website that tracks and compares software package versions across different Linux distributions.
 https://repology.org/project/freefilesync/versions
 
 .
