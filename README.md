@@ -33,6 +33,8 @@ https://repology.org/project/freefilesync/versions
 
 https://github.com/jeffli678/build-FreeFileSync
 
+.
+
 ## Version 7.0 is the last version that provides vcxproj files for Windows compilation projects. Subsequent versions only provide the makefile for Linux.
 
 https://freefilesync.org/download/FreeFileSync_7.0_Source.zip
