@@ -37,4 +37,4 @@ https://github.com/jeffli678/build-FreeFileSync
 
 ## Version 7.0 is the last version that provides vcxproj files for Windows compilation projects. Subsequent versions only provide the makefile for Linux.
 
-https://freefilesync.org/download/FreeFileSync_7.0_Source.zip
+https://github.com/dddu809-max/FreeFileSync-easybuild/blob/master/old/FreeFileSync_7.0_Source.zip
