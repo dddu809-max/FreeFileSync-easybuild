@@ -11,6 +11,13 @@
 
 .
 
+His build approach is more professional and well-structured, making FreeFileSync easier to compile across different Linux systems.
+dpkg build recipe: https://gitlab.com/bgstack15/stackrpms/-/tree/master/freefilesync?ref_type=heads
+
+He use Open Build Service: https://build.opensuse.org/package/show/home:bgstack15/freefilesync, which pulls from that gitlab location and a custom git repository that tracks upstream releases directly.
+
+.
+
 # It seems that this link was built based on open-source code?？
 https://repology.org/project/freefilesync/versions
 
