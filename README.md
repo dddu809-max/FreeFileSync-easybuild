@@ -23,6 +23,6 @@ https://repology.org/project/freefilesync/versions
 
 .
 ## It’s mainly a tutorial repository that explains how to compile FreeFileSync 
-https://github.com/dddu809-max/build-FreeFileSync-on-raspberry-pi
+[https://github.com/dddu809-max/build-FreeFileSync-on-raspberry-pi](https://github.com/pmkees/build-FreeFileSync-on-raspberry-pi)
 
 https://github.com/jeffli678/build-FreeFileSync
