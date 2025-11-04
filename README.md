@@ -24,7 +24,9 @@ https://repology.org/project/freefilesync/versions
 .
 
 ## Build instructions for FreeFileSync on raspberry pi
-https://github.com/pmkees/build-FreeFileSync-on-raspberry-pi
+2023   https://github.com/pmkees/build-FreeFileSync-on-raspberry-pi
+2020   https://github.com/YingchunLi2020/build-FreeFileSync-on-raspberry-pi
+2020   https://github.com/Subere/build-FreeFileSync-on-raspberry-pi
 
 .
 ## It’s mainly a tutorial repository that explains how to compile FreeFileSync 
