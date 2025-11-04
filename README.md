@@ -1,6 +1,6 @@
 # If you have any ideas or thoughts, you can discuss them in the discussion area. Or you can try to fork this repository, modify the workflows, and then attempt to use the action for compilation by yourself. Or you can download it and compile it locally.
 
-25.11.4 - 24.04 Linux Vision already runs well.
+25.11.4 - 24.04 Linux Vision already runs well.   6df15e4c1692c558edb08b7c19cfba21c7360af9
 <img width="1463" height="1020" alt="Clip_2025-11-04_10-22-05" src="https://github.com/user-attachments/assets/15806ce3-07f8-48fd-a742-c37419225484" />
 
 
