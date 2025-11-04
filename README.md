@@ -6,12 +6,12 @@
 25.11.4 - 22.04 Linux Vision already runs well.   v0.1
 
 
-<img width="1463" height="1020" alt="Clip_2025-11-04_10-22-05" src="https://github.com/user-attachments/assets/15806ce3-07f8-48fd-a742-c37419225484" />
+<img width="731" height="510" alt="Clip_2025-11-04_10-22-05" src="https://github.com/user-attachments/assets/15806ce3-07f8-48fd-a742-c37419225484" />
 
 
 .
 
-His build approach is more professional and well-structured, making FreeFileSync easier to compile across different Linux systems.
+# His build approach is more professional and well-structured, making FreeFileSync easier to compile across different Linux systems.
 dpkg build recipe: https://gitlab.com/bgstack15/stackrpms/-/tree/master/freefilesync?ref_type=heads
 
 He use Open Build Service: https://build.opensuse.org/package/show/home:bgstack15/freefilesync, which pulls from that gitlab location and a custom git repository that tracks upstream releases directly.
