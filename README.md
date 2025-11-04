@@ -18,14 +18,13 @@ He use Open Build Service: https://build.opensuse.org/package/show/home:bgstack1
 
 .
 
-# Repology is a website that tracks and compares software package versions across different Linux distributions.
+## Repology is a website that tracks and compares software package versions across different Linux distributions.
 https://repology.org/project/freefilesync/versions
 
 .
-# It’s mainly a tutorial repository that explains how to compile FreeFileSync on Raspberry Pi, not one that provides prebuilt packages.
+## It’s mainly a tutorial repository that explains how to compile FreeFileSync 
 https://github.com/dddu809-max/build-FreeFileSync-on-raspberry-pi
 
 .
 
-# build-FreeFileSync   This is a tutorial written by someone else. I copied it over for reference only.
 https://github.com/jeffli678/build-FreeFileSync
