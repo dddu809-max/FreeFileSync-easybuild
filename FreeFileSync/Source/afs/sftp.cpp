@@ -23,6 +23,8 @@ using namespace zen;
 using namespace fff;
 using AFS = AbstractFileSystem;
 
+#define MAX_SFTP_OUTGOING_SIZE 30000
+#define MAX_SFTP_READ_SIZE 30000
 
 namespace
 {

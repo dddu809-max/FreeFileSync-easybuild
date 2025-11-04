@@ -28,27 +28,22 @@ jobs:
             libssh2-1-dev \
             libcurl4-openssl-dev \
             libboost-all-dev \
-            libgtk2.0-dev \
+            libgtk-3-dev \
             libglib2.0-dev \
             libsm-dev \
             zlib1g-dev
 
-      - name: Build wxWidgets 3.3.1 (static, GTK2, no exceptions)
+      - name: Build wxWidgets 3.3.2 (static, GTK3, no exceptions)
         run: |
-          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.3.1/wxWidgets-3.3.1.tar.bz2
-          tar xf wxWidgets-3.3.1.tar.bz2
-          cd wxWidgets-3.3.1
+          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.3.2/wxWidgets-3.3.2.tar.bz2
+          tar xf wxWidgets-3.3.2.tar.bz2
+          cd wxWidgets-3.3.2
           mkdir build-gtk
           cd build-gtk
-          ../configure --disable-shared --disable-exceptions --with-gtk=2
+          ../configure --disable-shared --disable-exceptions --with-gtk=3 --prefix=/usr/local --enable-std_containers --disable-compat32 --disable-compat30
           make -j"$(nproc)"
           sudo make install
           sudo ldconfig
-
-      - name: Patch FreeFileSync sources (disable aggressive DPI check)
-        run: |
-          # 在 wx+/dc.h 里强行定义 wxHAS_DPI_INDEPENDENT_PIXELS，绕过 #error
-          sed -i 's/#include <wx\/dcscreen.h>/#include <wx\/dcscreen.h>\n#define wxHAS_DPI_INDEPENDENT_PIXELS 1/' wx+/dc.h
 
       - name: Build FreeFileSync
         working-directory: FreeFileSync/Source

@@ -14,6 +14,7 @@
 #include <wx/dcbuffer.h> //for macro: wxALWAYS_NATIVE_DOUBLE_BUFFER
 #include <wx/dcscreen.h>
 
+#define wxHAS_DPI_INDEPENDENT_PIXELS 1
 
 namespace zen
 {

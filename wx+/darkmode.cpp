@@ -12,6 +12,16 @@
 
 using namespace zen;
 
+struct wxColorHook
+ {
+     virtual ~wxColorHook() {}
+    virtual wxColor getColor(wxSystemColour index) const = 0;
+ };
+ WXDLLIMPEXP_CORE inline std::unique_ptr<wxColorHook>& refGlobalColorHook()
+ {
+     static std::unique_ptr<wxColorHook> globalColorHook;
+     return globalColorHook;
+}
 
 bool zen::darkModeAvailable()
 {
