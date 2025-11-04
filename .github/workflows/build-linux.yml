@@ -1,11 +1,11 @@
-name: Build FreeFileSync for Ubuntu 24.04
+name: Build FreeFileSync for Ubuntu 22.04
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout source
