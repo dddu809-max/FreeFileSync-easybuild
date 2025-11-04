@@ -1,20 +1,15 @@
-name: Build FreeFileSync for Ubuntu 22.04
+name: Build FreeFileSync for Ubuntu 24.04
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
-      - name: Check file structure
-        run: |
-          ls -R libcurl/
-          ls -R FreeFileSync/Source/afs/
 
       - name: Install build dependencies
         run: |
@@ -29,42 +24,22 @@ jobs:
             libssh2-1-dev \
             libcurl4-openssl-dev \
             libboost-all-dev \
-            libgtk2.0-dev \
+            libgtk-3-dev \
             libglib2.0-dev \
             libsm-dev \
             zlib1g-dev
 
-      - name: Build wxWidgets 3.1.2 (static, no exceptions)
+      - name: Build wxWidgets 3.3.1 (static, GTK3, no exceptions)
         run: |
-          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.2/wxWidgets-3.1.2.tar.bz2
-          tar xf wxWidgets-3.1.2.tar.bz2
-          cd wxWidgets-3.1.2
+          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.3.1/wxWidgets-3.3.1.tar.bz2
+          tar xf wxWidgets-3.3.1.tar.bz2
+          cd wxWidgets-3.3.1
           mkdir build-gtk
           cd build-gtk
-          ../configure --disable-shared --disable-exceptions
+          ../configure --disable-shared --disable-exceptions --with-gtk=3 --prefix=/usr/local --enable-std_containers --disable-compat32 --disable-compat30
           make -j"$(nproc)"
           sudo make install
           sudo ldconfig
-
-      - name: Tweak source code for libssh2 and libcurl compatibility
-        run: |
-          # 修复 curl_wrap.h 中的兼容性问题（修正文件路径）
-          sed -i '78s/^/\/\//' libcurl/curl_wrap.h
-          sed -i '120s/^/\/\//' libcurl/curl_wrap.h
-
-          # 修复 sftp.cpp 中的宏定义缺失（确认 sftp.cpp 路径是否正确，根据代码片段应为 FreeFileSync/Source/afs/sftp.cpp）
-          sed -i '58i #define MAX_SFTP_OUTGOING_SIZE 30000\n#define MAX_SFTP_READ_SIZE 30000' FreeFileSync/Source/afs/sftp.cpp
-          sed -i '1662i #define LIBSSH2_SFTP_DEFAULT_MODE      -1' FreeFileSync/Source/afs/sftp.cpp
-
-          # 调整 C++ 标准（确认 Makefile 路径，根据代码片段应为 FreeFileSync/Source/Makefile）
-          sed -i 's/-std=c++23/-std=c++2a/' FreeFileSync/Source/Makefile
-
-      - name: Check Resources.zip exists
-        run: |
-          if [ ! -f "FreeFileSync/Build/Resources.zip" ]; then
-            echo "Error: Resources.zip not found in FreeFileSync/Build"
-            exit 1
-          fi
 
       - name: Build FreeFileSync
         working-directory: FreeFileSync/Source
