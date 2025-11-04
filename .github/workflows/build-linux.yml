@@ -31,7 +31,7 @@ jobs:
 
       - name: Build wxWidgets 3.3.1 (static, GTK2, no exceptions)
         run: |
-          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.3.1/wxWidgets-3.3.1.tar.bz2
+          wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v3.3.1/wxWidgets-3.3.1.tar.bz2
           tar xf wxWidgets-3.3.1.tar.bz2
           cd wxWidgets-3.3.1
           mkdir build-gtk
@@ -40,11 +40,24 @@ jobs:
           make -j"$(nproc)"
           sudo make install
           sudo ldconfig
+          echo "Using wxWidgets:"
+          wx-config --version
 
-      - name: Patch FreeFileSync sources (disable aggressive DPI check)
-        working-directory: FreeFileSync/Source
+      - name: Patch FreeFileSync sources (DPI + libssh2)
+        # 注意：这里默认工作目录是仓库根目录，
+        # 结构类似：
+        #   FreeFileSync/Source/...
+        #   wx+/dc.h
+        #   libssh2/libssh2_wrap.h
         run: |
+          # 1) 禁用 wx+/dc.h 里过于激进的 DPI 检查
           sed -i 's/#include <wx\/dcscreen.h>/#include <wx\/dcscreen.h>\n#define wxHAS_DPI_INDEPENDENT_PIXELS 1/' wx+/dc.h
+
+          # 2) Ubuntu 22.04 自带的 libssh2 比较老，缺少一些新错误码：
+          #    LIBSSH2_ERROR_MISSING_USERAUTH_BANNER / LIBSSH2_ERROR_ALGO_UNSUPPORTED
+          #    直接把对应 case 注释掉，避免编译失败，只会少两个日志字符串，不影响功能。
+          sed -i 's/ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_MISSING_USERAUTH_BANNER);/\/\/ ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_MISSING_USERAUTH_BANNER);/' libssh2/libssh2_wrap.h || true
+          sed -i 's/ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_ALGO_UNSUPPORTED);/\/\/ ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_ALGO_UNSUPPORTED);/' libssh2/libssh2_wrap.h || true
 
       - name: Build FreeFileSync
         working-directory: FreeFileSync/Source
@@ -52,7 +65,7 @@ jobs:
           CXX: g++-12
         run: |
           make -j"$(nproc)"
-          echo "Build output:"
+          echo "Build output tree:"
           ls -R ../Build || true
 
       - name: Upload Linux binary artifact
