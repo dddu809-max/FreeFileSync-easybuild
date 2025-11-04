@@ -24,40 +24,42 @@ jobs:
             libssh2-1-dev \
             libcurl4-openssl-dev \
             libboost-all-dev \
-            libgtk2.0-dev \
+            libgtk2.0-dev \  # 仅保留GTK2，移除GTK3避免冲突
             libglib2.0-dev \
             libsm-dev \
             zlib1g-dev
 
-      - name: Build wxWidgets 3.3.1 (static, GTK2, no exceptions)
+      - name: Build wxWidgets 3.1.2 (static, no exceptions)
         run: |
-          wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v3.3.1/wxWidgets-3.3.1.tar.bz2
-          tar xf wxWidgets-3.3.1.tar.bz2
-          cd wxWidgets-3.3.1
+          wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.2/wxWidgets-3.1.2.tar.bz2
+          tar xf wxWidgets-3.1.2.tar.bz2
+          cd wxWidgets-3.1.2
           mkdir build-gtk
           cd build-gtk
-          ../configure --disable-shared --disable-exceptions --with-gtk=2
+          ../configure --disable-shared --disable-exceptions
           make -j"$(nproc)"
           sudo make install
           sudo ldconfig
-          echo "Using wxWidgets:"
-          wx-config --version
 
-      - name: Patch FreeFileSync sources (DPI + libssh2)
-        # 注意：这里默认工作目录是仓库根目录，
-        # 结构类似：
-        #   FreeFileSync/Source/...
-        #   wx+/dc.h
-        #   libssh2/libssh2_wrap.h
+      - name: Tweak source code for libssh2 and libcurl compatibility
         run: |
-          # 1) 禁用 wx+/dc.h 里过于激进的 DPI 检查
-          sed -i 's/#include <wx\/dcscreen.h>/#include <wx\/dcscreen.h>\n#define wxHAS_DPI_INDEPENDENT_PIXELS 1/' wx+/dc.h
+          # 修复curl_wrap.h中的兼容性问题
+          sed -i '78s/^/\/\//' FreeFileSync/Source/afs/libcurl/curl_wrap.h
+          sed -i '120s/^/\/\//' FreeFileSync/Source/afs/libcurl/curl_wrap.h
 
-          # 2) Ubuntu 22.04 自带的 libssh2 比较老，缺少一些新错误码：
-          #    LIBSSH2_ERROR_MISSING_USERAUTH_BANNER / LIBSSH2_ERROR_ALGO_UNSUPPORTED
-          #    直接把对应 case 注释掉，避免编译失败，只会少两个日志字符串，不影响功能。
-          sed -i 's/ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_MISSING_USERAUTH_BANNER);/\/\/ ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_MISSING_USERAUTH_BANNER);/' libssh2/libssh2_wrap.h || true
-          sed -i 's/ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_ALGO_UNSUPPORTED);/\/\/ ZEN_CHECK_CASE_FOR_CONSTANT(LIBSSH2_ERROR_ALGO_UNSUPPORTED);/' libssh2/libssh2_wrap.h || true
+          # 修复sftp.cpp中的宏定义缺失
+          sed -i '58i #define MAX_SFTP_OUTGOING_SIZE 30000\n#define MAX_SFTP_READ_SIZE 30000' FreeFileSync/Source/afs/sftp.cpp
+          sed -i '1662i #define LIBSSH2_SFTP_DEFAULT_MODE      -1' FreeFileSync/Source/afs/sftp.cpp
+
+          # 调整C++标准为c++2a（兼容FreeFileSync 10.12）
+          sed -i 's/-std=c++23/-std=c++2a/' FreeFileSync/Source/Makefile
+
+      - name: Check Resources.zip exists
+        run: |
+          if [ ! -f "FreeFileSync/Build/Resources.zip" ]; then
+            echo "Error: Resources.zip not found in FreeFileSync/Build"
+            exit 1
+          fi
 
       - name: Build FreeFileSync
         working-directory: FreeFileSync/Source
@@ -65,7 +67,7 @@ jobs:
           CXX: g++-12
         run: |
           make -j"$(nproc)"
-          echo "Build output tree:"
+          echo "Build output:"
           ls -R ../Build || true
 
       - name: Upload Linux binary artifact
