@@ -24,7 +24,7 @@ jobs:
             libssh2-1-dev \
             libcurl4-openssl-dev \
             libboost-all-dev \
-            libgtk2.0-dev \  # 仅保留GTK2，移除GTK3避免冲突
+            libgtk2.0-dev \
             libglib2.0-dev \
             libsm-dev \
             zlib1g-dev
@@ -43,15 +43,12 @@ jobs:
 
       - name: Tweak source code for libssh2 and libcurl compatibility
         run: |
-          # 修复curl_wrap.h中的兼容性问题
           sed -i '78s/^/\/\//' FreeFileSync/Source/afs/libcurl/curl_wrap.h
           sed -i '120s/^/\/\//' FreeFileSync/Source/afs/libcurl/curl_wrap.h
 
-          # 修复sftp.cpp中的宏定义缺失
           sed -i '58i #define MAX_SFTP_OUTGOING_SIZE 30000\n#define MAX_SFTP_READ_SIZE 30000' FreeFileSync/Source/afs/sftp.cpp
           sed -i '1662i #define LIBSSH2_SFTP_DEFAULT_MODE      -1' FreeFileSync/Source/afs/sftp.cpp
 
-          # 调整C++标准为c++2a（兼容FreeFileSync 10.12）
           sed -i 's/-std=c++23/-std=c++2a/' FreeFileSync/Source/Makefile
 
       - name: Check Resources.zip exists
