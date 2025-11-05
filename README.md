@@ -1,4 +1,6 @@
-## If you have any ideas or thoughts, you can discuss them in the discussion area. Or you can try to fork this repository, modify the workflows, and then attempt to use the action for compilation by yourself. Or you can download it and compile it locally.
+# My progress
+
+### If you have any ideas or thoughts, you can discuss them in the discussion area. Or you can try to fork this repository, modify the workflows, and then attempt to use the action for compilation by yourself. Or you can download it and compile it locally.
 
 ### 25.11.4 15.4-ffs for 24.04 ubantu Vision already runs.   v0.2
 
@@ -8,15 +10,21 @@
 
 .
 
+# Windows
+
 ## Version 7.0 is the last version that provides vcxproj files for Windows compilation projects. Subsequent versions only provide the makefile for Linux.
 
 https://github.com/dddu809-max/FreeFileSync_7.0-easybuild----last-open-version-for-Windows
+
+.
 
 ## This project is also likely to be version v7. It clearly enables the compilation of Windows applications from the source code, and it is compatible with other platforms as well.
 
 https://github.com/abcdec/MinFFS
 
 .
+
+# Linux
 
 ## His build approach is more professional and well-structured, making FreeFileSync easier to compile across different Linux systems.
 dpkg build recipe: https://gitlab.com/bgstack15/stackrpms/-/tree/master/freefilesync?ref_type=heads
@@ -38,6 +46,7 @@ https://repology.org/project/freefilesync/versions
 10.22   https://github.com/YingchunLi2020/build-FreeFileSync-on-raspberry-pi
 
 .
+
 ## It’s mainly a tutorial repository that explains how to compile FreeFileSync 
 
 https://github.com/jeffli678/build-FreeFileSync
