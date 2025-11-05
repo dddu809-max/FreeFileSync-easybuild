@@ -12,6 +12,10 @@
 
 https://github.com/dddu809-max/FreeFileSync_7.0-easybuild----last-open-version-for-Windows
 
+## This project is also likely to be version v7. It clearly enables the compilation of Windows applications from the source code, and it is compatible with other platforms as well.
+
+https://github.com/abcdec/MinFFS
+
 .
 
 ## His build approach is more professional and well-structured, making FreeFileSync easier to compile across different Linux systems.
@@ -54,4 +58,12 @@ ssh2 h
 
 yam
 2204 2个
+
+这个项目只是把 GitHub 上的包封进了 Docker 容器。我更喜欢用图形化的 Docker 环境装 FFS，自由度更高、体验更好，不用让整个界面只跑一个程序。
+
+https://github.com/jlesage/docker-freefilesync
+
+这个项目是相当于把 GitHub 上发布的包处理一下，上传到一个应用商店上 和源码无关
+
+https://github.com/flathub/org.freefilesync.FreeFileSync
 
