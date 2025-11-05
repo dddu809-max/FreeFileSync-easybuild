@@ -39,5 +39,17 @@ https://repology.org/project/freefilesync/versions
 https://github.com/jeffli678/build-FreeFileSync
 
 .
+注释掉以下这些代码，就可以兼容2204
+curl cpp
+366
+379
+380
+397-403
 
+ssh2 h
+191
+192
+
+yam
+2204 2个
 
