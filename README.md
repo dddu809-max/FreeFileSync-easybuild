@@ -44,6 +44,8 @@ https://github.com/jeffli678/build-FreeFileSync
 
 .
 
+## 随手记
+
 注释掉以下这些代码，就可以兼容2204
 
 curl cpp
@@ -58,6 +60,8 @@ ssh2 h
 
 yam
 2204 2个
+
+## 以下是非源码部编译的 有趣项目
 
 这个项目只是把 GitHub 上的包封进了 Docker 容器。我更喜欢用图形化的 Docker 环境装 FFS，自由度更高、体验更好，不用让整个界面只跑一个程序。
 
