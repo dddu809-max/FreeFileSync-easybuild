@@ -6,6 +6,11 @@
 
 <img width="365.5" height="255" alt="Clip_2025-11-04_10-22-05" src="https://github.com/user-attachments/assets/15806ce3-07f8-48fd-a742-c37419225484" />
 
+.
+
+## Version 7.0 is the last version that provides vcxproj files for Windows compilation projects. Subsequent versions only provide the makefile for Linux.
+
+https://github.com/dddu809-max/FreeFileSync_7.0-easybuild----last-open-version-for-Windows
 
 .
 
@@ -35,6 +40,4 @@ https://github.com/jeffli678/build-FreeFileSync
 
 .
 
-## Version 7.0 is the last version that provides vcxproj files for Windows compilation projects. Subsequent versions only provide the makefile for Linux.
 
-https://github.com/dddu809-max/FreeFileSync_7.0-easybuild----last-open-version-for-Windows
